@@ -1,0 +1,44 @@
+body{
+    margin: 0px;
+}
+header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 25px;
+    background:#dcdcdc;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    z-index: 999;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+.home{
+    height: 25px;
+    margin: 2px;
+}
+.home-button{
+    width:32px;
+    height:32px;
+    margin-left: 40px;
+}
+
+
+.left{
+    
+    width: 200px;
+}
+
+.middle{
+    color: white;
+}
+.right{
+    width: 200px;
+}
+
+.site-name{
+    height: 40px;
+    padding: 10px 0;
+    mix-blend-mode: color-burn;
+}
