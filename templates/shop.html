@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UrbanTrove</title>
+  <link class="favicon" rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <section id="header">
+    <a href="#"><img src="{{ url_for('static', filename='images/LogoU.jpeg') }}" class="logo" alt=""></a>
+
+    <div>
+      <ul id="navbar">
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a class="active" href="{{ url_for('shop') }}">Products</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        {% if session.get('email') %}
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('cart') }}"><img src="{{ url_for('static', filename='images/Icons/cart.png') }}"></a></li>
+      </ul>
+    </div>      
+  </section>
+
+  <section id="page-header" class="shop-header" style="background-image: url('{{ url_for('static', filename='images/Banners/shop.jpg') }}');">
+    <h1>#WearitWednesday</h1>
+    <p>Save up to 50% on Wednesdays</p>
+  </section>
+
+  <section id="products" class="section-p1">
+    <div class="pro-container">
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP1';">
+        <img id="img1" src="{{ url_for('static', filename='images/Oversized-T-Shirt/01/men-s-black-aop-oversized-t-shirt-425019-1667560056-1.webp') }}" alt="">
+        <div class="des">
+          <span>Oversized T-Shirts</span>
+          <h4>Black AOP</h4>
+          <h3>₹ 799</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP2';">
+        <img id="img2" src="{{ url_for('static', filename='images/Oversized-T-Shirt/02/men-s-black-warriors-graphic-printed-oversized-t-shirt-519149-1679048409-1.webp') }}" alt="">
+        <div class="des">
+          <span>Oversized T-Shirts</span>
+          <h4>Black Warriors Graphic Printed</h4>
+          <h3>₹ 699</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP3';">
+        <img id="img3" src="{{ url_for('static', filename='images/T-Shirt/01/men-s-white-young-forever-t-shirt-277586-1655747977-1.webp') }}" alt="">
+        <div class="des">
+          <span>T-Shirts</span>
+          <h4>Young Forever</h4>
+          <h3>₹ 449</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP4';">
+        <img id="img4" src="{{ url_for('static', filename='images/Oversized-T-Shirt/08/men-s-black-typography-oversized-t-shirt-590958-1682522365-1.webp') }}" alt="">
+        <div class="des">
+          <span>T-Shirts</span>
+          <h4>Never Give Up Typography</h4>
+          <h3>₹ 645</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP8';">
+        <img id="img5" src="{{ url_for('static', filename='images/Shoe/Naruto Signature/1676016585_3411903.webp') }}" alt="">
+        <div class="des">
+          <span>Shoes</span>
+          <h4>Naruto: Signature</h4>
+          <h3>₹ 1999</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP9';">
+        <img id="img6" src="{{ url_for('static', filename='images/Shoe/Punisher Logo (Glow In The Dark)/1678380121_2310053.webp') }}" alt="">
+        <div class="des">
+          <span>Shoes</span>
+          <h4>Punisher: Logo (Glow In The Dark)</h4>
+          <h3>₹ 1999</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP10';">
+        <img id="img7" src="{{ url_for('static', filename="images/sliders/02-Men's White Batman Dripping Logo Printed Velcro Sliders/men-s-white-batman-dripping-logo-printed-velcro-sliders-579923-1680613370-1.webp") }}" alt="">
+        <div class="des">
+          <span>Sliders</span>
+          <h4>White Batman Dripping Logo</h4>
+          <h3>₹ 399</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP11';">
+        <img id="img8" src="{{ url_for('static', filename="images/sliders/04-Men's Black Ironman Printed Adjustable Strap Comfysole Sliders/ironman-comfysole-mens-sliders-537396-1663218816-1.webp") }}" alt="">
+        <div class="des">
+          <span>Sliders</span>
+          <h4>Black Ironman Printed Adjustable Strap</h4>
+          <h3>₹ 499</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP5';">
+        <img id="img9" src="{{ url_for('static', filename='images/fanny-bag/03/white-panda-camo-fanny-bag-578614-1680612792-1.webp') }}" alt="">
+        <div class="des">
+          <span>Fanny Packs</span>
+          <h4>White Panda Camo</h4>
+          <h3>₹ 349</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP6';">
+        <img id="img10" src="{{ url_for('static', filename='images/fanny-bag/04/unisex-mickey-hyperprint-sling-bag-578615-1677841916-1.webp') }}" alt="">
+        <div class="des">
+          <span>Fanny Packs</span>
+          <h4>Black Mickey Hyperprint</h4>
+          <h3>₹ 299</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP7';">
+        <img id="img11" src="{{ url_for('static', filename='images/jean/04/black-denim-jeans-479358-1680593113-1.webp') }}" alt="">
+        <div class="des">
+          <span>Jeans</span>
+          <h4>Men's Black Denim</h4>
+          <h3>₹ 799</h3>
+        </div>
+      </div>
+      <div class="pro1" onclick="window.location.href='{{ url_for('product') }}?product=SP12';">
+        <img id="img12" src="{{ url_for('static', filename='images/T-Shirt/02/lost-mountains-half-sleeve-t-shirt-272010-1655748131-1.webp') }}" alt="">
+        <div class="des">
+          <span>T-Shirts</span>
+          <h4>Lost Mountains Graphic Printed</h4>
+          <h3>₹ 499</h3>
+        </div>
+      </div>
+
+      <div class="pro1">
+        <img id="img5" src="{{ url_for('static', filename='images/Featured/tee.jpg') }}" alt="">
+        <div class="des">
+            <span>T-Shirts</span>
+            <h4>The Office: Best of Dunder Mifflin</h4>
+            <h3>₹ 549</h3>
+        </div>
+      </div>
+      <div class="pro1">
+          <img id="img6" src="{{ url_for('static', filename='images/Featured/tee1.jpg') }}" alt="">
+          <div class="des">
+              <span>T-Shirts</span>
+              <h4>Star Wars: Spaceship Pattern</h4>
+              <h3>₹ 699</h3>
+          </div>
+      </div>
+      <div class="pro1">
+          <img id="img7" src="{{ url_for('static', filename='images/Featured/shoe1.jpg') }}" alt="">
+          <div class="des">
+              <span>Sneakers</span>
+              <h4>Black Panther: Wakanda</h4>
+              <h3>₹ 2499</h3>
+          </div>
+      </div>
+      <div class="pro1">
+          <img id="img8" src="{{ url_for('static', filename='images/Featured/fanny.jpg') }}" alt="">
+          <div class="des">
+              <span>Fanny Packs</span>
+              <h4>Soul Music Fanny Pack</h4>
+              <h3>₹ 819</h3>
+          </div>
+      </div>
+      <div class="pro1">
+          <img id="img1" src="{{ url_for('static', filename='images/Featured/overs2.jpg') }}" alt="">
+          <div class="des">
+              <span>Oversized T-Shirts</span>
+              <h4>Tom And Jerry: Angry Tom</h4>
+              <h3>₹ 999</h3>
+          </div>
+      </div>
+      <div class="pro1">
+          <img id="img2" src="{{ url_for('static', filename='images/Featured/overs.jpg') }}" alt="">
+          <div class="des">
+              <span>Oversized T-Shirts</span>
+              <h4>Harry Potter: Hogwarts 07</h4>
+              <h3>₹ 999</h3>
+          </div>
+      </div>
+      <div class="pro1">
+          <img id="img3" src="{{ url_for('static', filename='images/Featured/overs1.jpg') }}" alt="">
+          <div class="des">
+              <span>Oversized T-Shirts</span>
+              <h4>Truck Art: Superman</h4>
+              <h3>₹ 999</h3>
+          </div>
+      </div>
+      <div class="pro1">
+          <img id="img4" src="{{ url_for('static', filename='images/Featured/jean.jpg') }}" alt="">
+          <div class="des">
+              <span>Jeans</span>
+              <h4>Solids: Charcoal Grey</h4>
+              <h3>₹ 2299</h3>
+          </div>
+      </div>    
+    </div>
+  </section>
+
+  <section id="newsletter" class="section-p1 section-m2">
+    <div class="newstext" >
+      <h4>Sign Up For Newsletters</h4>
+      <p>Get E-mails About Our <span>Latest Drops</span> and <span>Special offers</span>.</p>
+    </div>
+    <div class="form">
+      <input type="text" placeholder="Your Email Address">
+      <button class="newsbtn">Sign Up</button>
+    </div>
+  </section>
+
+  <footer id="footer" class="section-p1">
+    <div class="footer-container">
+      <div class="socialIcons">
+          <a href="{{ url_for('about') }}"><i class="fa-brands fa-instagram"></i></a>
+          <a href="{{ url_for('about') }}"><i class="fa-brands fa-facebook"></i></a>
+          <a href="{{ url_for('about') }}"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+      <div class="footernav">
+          <ul>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+          <li><a href="{{ url_for('about') }}">Our Team</a></li>
+          </ul>
+      </div>
+  </div>
+    <div class="footerBottom">
+        <p>Copyright &copy;2024; Designed By <span class="designer">GROUP 8</span></p>
+    </div>
+</footer>
+
+  <script src="{{ url_for('static', filename='hover.js') }}"></script>
+</body>
+
+</html>

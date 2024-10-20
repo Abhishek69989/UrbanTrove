@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanTrove</title>
+    <link class="favicon" rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+  <body>
+    <section id="header">
+      <a href="#"><img src="{{ url_for('static', filename='images/LogoU.jpeg') }}" class="logo" alt=""></a>
+  
+      <div>
+        <ul id="navbar">
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('shop') }}">Products</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a class="active" href="{{ url_for('contact') }}">Contact</a></li>
+          {% if session.get('email') %}
+              <li><a href="{{ url_for('logout') }}">Logout</a></li>
+          {% else %}
+              <li><a href="{{ url_for('login') }}">Login</a></li>
+          {% endif %}
+          <li><a href="{{ url_for('cart') }}"><img src="{{ url_for('static', filename='images/Icons/cart.png') }}"></a></li>
+        </ul>
+      </div>      
+    </section>
+
+    <section id="page-header" class="about-header" style="background-image: url('{{ url_for('static', filename='images/Banners/about.png') }}');">
+      <h1>#Let's_Connect</h1>
+      <p>Feel Free to Reach Out, We're Excited to Connect With <span class="you">You</span>!</p>
+    </section>
+
+    <section id="contact-details" class="section-p1">
+      <div class="details">
+        <span>Get In Touch</span>
+        <h2>Visit One of Our Store Locations or Contact Us Today</h2>
+        <h3>Head Office</h3>
+        <div>
+          <li>
+            <i class="far fa-map"></i>
+            <p>Amrita Vishwa Vidyapeetham, Coimbatore</p>
+          </li>
+          <li>
+            <i class="far fa-envelope"></i>
+            <p>urbantrove.orders@gmail.com</p>
+          </li>
+          <li>
+            <i class="far fa-clock"></i>
+            <p>Monday to Saturday: 10:00 am To 16:00 pm</p>
+          </li>
+        </div>
+      </div>
+
+      <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.8015797365997!2d76.90062789999999!3d10.902679100000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba85c95d3e828eb%3A0x2785cb4510629029!2sAmrita%20Vishwa%20Vidyapeetham%2C%20Coimbatore%20campus!5e0!3m2!1sen!2sin!4v1688800871712!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+
+    <section id="form-details">
+      <form action="">
+        <span>LEAVE A MESSAGE</span>
+        <h2>We'd Love To hear From You</h2>
+        <input type="text" placeholder="Your Name">
+        <input type="text" placeholder="E-mail">
+        <input type="text" placeholder="Subject">
+        <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
+        <button>Submit</button>
+      </form>
+    </section>
+
+    <section id="newsletter" class="section-p1 section-m2">
+      <div class="newstext" >
+        <h4>Sign Up For Newsletters</h4>
+        <p>Get E-mails About Our <span>Latest Drops</span> and <span>Special offers</span>.</p>
+      </div>
+      <div class="form">
+        <input type="text" placeholder="Your Email Address">
+        <button class="newsbtn">Sign Up</button>
+      </div>
+    </section>
+
+    <footer id="footer" class="section-p1">
+      <div class="footer-container">
+        <div class="socialIcons">
+          <a href="{{ url_for('about') }}"><i class="fa-brands fa-instagram"></i></a>
+          <a href="{{ url_for('about') }}"><i class="fa-brands fa-facebook"></i></a>
+          <a href="{{ url_for('about') }}"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+        <div class="footernav">
+          <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            <li><a href="{{ url_for('about') }}">Our Team</a></li>
+          </ul>
+        </div>
+      </div>
+    <div class="footerBottom">
+      <p>Copyright &copy;2024; Designed By <span class="designer">ABHISHEK</span></p>
+    </div>
+    </footer>
+
+    
+  </body>
+</html>

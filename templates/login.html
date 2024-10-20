@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanTrove - Login</title>
+
+    <link class="favicon" rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/general/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/Login/login.css') }}">
+</head>
+<body>
+    <header>
+        <div class="left">
+            <a href="{{ url_for('index') }}" class="home-button">
+                <img class="home" src="{{ url_for('static', filename='images/home-icon.png') }}" alt="Home">
+            </a>
+        </div>
+        <div class="middle">
+            <img class="site-name" src="{{ url_for('static', filename='images/sitename.jpg') }}" alt="UrbanTrove">
+        </div>
+        <div class="right"></div>
+    </header>
+
+    <main>
+        <section>
+            <div class="box">
+                <p class="login">Login</p>
+                <form action="{{ url_for('login') }}" method="POST" name="forms" onsubmit="return Validation();">
+                    <div class="email-label">
+                        <label for="email">EMAIL</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="email-errors js-email-error"></div>
+                    </div>
+                    <div class="password-label">
+                        <label for="password">PASSWORD</label>
+                        <input type="password" id="password" name="password" required>
+                        <div class="password-errors js-pass-error"></div>
+                    </div>
+                    <input type="submit" class="submit" value="Sign In">
+                    <div class="signup-link"><a class="link" href="{{ url_for('signup') }}">Not a user?</a></div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='Scripts/Login/js-validation.js') }}"></script>
+    
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - UrbanTrove</title>
+    <link class="favicon" rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<script>
+    function addToCart(productId, productName, productPrice, productImage) {
+        if (isLoggedIn()) {
+            const quantity = parseInt(document.getElementById('product-quantity').value);
+            const size = document.getElementById('product-size').value;
+
+            if (size === "Select Size") {
+                alert("Please select a size before adding to cart.");
+                return;
+            }
+
+            fetch("{{ url_for('add_to_cart') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ 
+                    product_id: productId, 
+                    quantity: quantity,
+                    size: size
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Server response:', data);
+
+                if (data.message) {
+                    alert(data.message);
+                    updateCartTotals();
+                } else if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    alert('An unknown error occurred. Please try again.');
+                }
+            });
+        } else {
+            showLoginPopup();
+        }
+    }
+
+    function isLoggedIn() {
+        return {{ 'true' if session.get('email') else 'false' }};
+    }
+
+    function showLoginPopup() {
+        alert('Please log in to add items to your cart.');
+        window.location.href = "{{ url_for('login') }}";
+    }
+</script>
+
+
+
+<body>
+
+    <section id="header">
+        <a href="#"><img src="{{ url_for('static', filename='images/LogoU.jpeg') }}" class="logo" alt=""></a>
+    
+        <div>
+          <ul id="navbar">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a class="active" href="{{ url_for('shop') }}">Products</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            {% if session.get('email') %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('cart') }}"><img src="{{ url_for('static', filename='images/Icons/cart.png') }}"></a></li>
+          </ul>
+        </div>      
+      </section>
+
+      <section id="productdetails" class="section-p1">
+        <div class="single-image">
+            <img src="{{ product.image }}" width="85%" id="main-img" alt="{{ product.name }}">
+            <div class="small-img-group">
+                {% for img in product.additional_images %}
+                <div class="small-img-row">
+                    <img src="{{ img }}" width="75%" class="small-img" alt="">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="single-product-details">
+            <h6>Home / {{ product.description }}</h6>
+            <h4>{{ product.name }}</h4>
+            <h2>₹ {{ product.price }}</h2>
+            <select id="product-size" class="select1">
+                <option>Select Size</option>
+                <option>Small</option>
+                <option>Medium</option>
+                <option>Large</option>
+                <option>XL</option>
+            </select>
+            <select id="product-quantity" class="select2">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <button class="newsbtn" onclick="addToCart('{{ product.id }}', '{{ product.name }}', {{ product.price }}, '{{ product.image }}')">Add To Cart</button>
+            <span>
+                <p class="product-des">
+                    <strong><u>Product Details:</u></strong>
+                </p>
+                <p>
+                    <strong>Material & Care:</strong>
+                </p>
+                <p>
+                    {{ product.product_details }}
+                </p>
+                <p>{{ product.material }}</p>
+                <p>{{ product.care }}</p>
+                <p class="country"><strong>Country of Origin:</strong><p></p> {{ product.country_of_origin }}</p>
+                <p class="product-des">
+                    <strong><u>Product Description:</u></strong>
+                </p>
+                <p>{{ product.product_description }}</p>
+            </span>            
+        </div>
+    </section>    
+
+    <section id="feature-title" style="background-image: url('{{ url_for('static', filename='images/Category/title.jpeg') }}');">
+        <p class="feat-p">Featured Products</p>
+    </section>
+    <section id="products" class="section-p1">
+        <div class="pro-container">
+            <div class="pro">
+                <img id="img1" src="{{ url_for('static', filename='images/Featured/overs2.jpg') }}" alt=""
+                    onmouseover="changeImg1()" onmouseout="changeImg1_1()">
+                <div class="des">
+                    <span>Oversized T-Shirts</span>
+                    <h4>Tom And Jerry: Angry Tom</h4>
+                    <h3>₹ 999</h3>
+                </div>
+            </div>
+            <div class="pro">
+                <img id="img2" src="{{ url_for('static', filename='images/Featured/overs.jpg') }}" alt=""
+                    onmouseover="changeImg2()" onmouseout="changeImg2_2()">
+                <div class="des">
+                    <span>Oversized T-Shirts</span>
+                    <h4>Harry Potter: Hogwarts 07</h4>
+                    <h3>₹ 999</h3>
+                </div>
+            </div>
+            <div class="pro">
+                <img id="img3" src="{{ url_for('static', filename='images/Featured/overs1.jpg') }}" alt=""
+                    onmouseover="changeImg3()" onmouseout="changeImg3_3()">
+                <div class="des">
+                    <span>Oversized T-Shirts</span>
+                    <h4>Truck Art: Superman</h4>
+                    <h3>₹ 999</h3>
+                </div>
+            </div>
+            <div class="pro">
+                <img id="img4" src="{{ url_for('static', filename='images/Featured/jean.jpg') }}" alt=""
+                    onmouseover="changeImg4()" onmouseout="changeImg4_4()">
+                <div class="des">
+                    <span>Jeans</span>
+                    <h4>Solids: Charcoal Grey</h4>
+                    <h3>₹ 2299</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="newsletter" class="section-p1 section-m2">
+        <div class="newstext">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mails About Our <span>Latest Drops</span> and <span>Special offers</span>.</p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your Email Address">
+            <button class="newsbtn">Sign Up</button>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="socialIcons">
+                <a href="{{ url_for('about') }}"><i class="fa-brands fa-instagram"></i></a>
+                <a href="{{ url_for('about') }}"><i class="fa-brands fa-facebook"></i></a>
+                <a href="{{ url_for('about') }}"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+            <div class="footernav">
+                <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                <li><a href="{{ url_for('about') }}">Our Team</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text">
+            <p>© 2024 UrbanTrove. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        var Mainimg = document.getElementById("main-img");
+        var Smallimg = document.getElementsByClassName("small-img");
+
+        for (let i = 0; i < Smallimg.length; i++) {
+            Smallimg[i].onclick = function () {
+                Mainimg.src = Smallimg[i].src;
+            }
+        }
+    </script>
+
+    <script src="{{ url_for('static', filename='hover.js') }}"></script>
+</body>
+
+</html>

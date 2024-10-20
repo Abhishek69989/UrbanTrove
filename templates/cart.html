@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanTrove - Cart</title>
+    <link class="favicon" rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                updateCartTotals();
+            });
+
+        function updateQuantity(productId, size, quantity) {
+            if (quantity < 1) {
+                alert('Quantity must be at least 1.');
+                return;
+            }
+
+            fetch("{{ url_for('update_cart') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ product_id: productId, size: size, quantity: quantity })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    const priceElement = document.querySelector(`#cart-item-${productId} .price`);
+                    const price = parseFloat(priceElement.getAttribute('data-price'));
+                    const subtotal = price * quantity;
+                    const subtotalElement = document.querySelector(`#cart-item-${productId} .subtotal`);
+                    subtotalElement.innerText = `₹ ${subtotal.toFixed(2)}`;
+                    subtotalElement.setAttribute('data-subtotal', subtotal);
+                    updateCartTotals();
+                } else {
+                    console.error('Error updating cart:', data);
+                    alert(`Error updating cart: ${data.error || 'Unknown error'}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('A network error occurred. Please try again.');
+            });
+        }
+
+
+        function removeItem(productId, size) {
+            fetch("{{ url_for('remove_from_cart') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ product_id: productId, size: size })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    document.getElementById(`cart-item-${productId}`).remove();
+                    updateCartTotals();
+                } else {
+                    alert('Error removing item.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateCartTotals() {
+            let subtotal = 0;
+            const subtotals = document.querySelectorAll('.subtotal');
+            subtotals.forEach(item => {
+                subtotal += parseFloat(item.getAttribute('data-subtotal'));
+            });
+            document.getElementById('cart-subtotal').innerText = `₹ ${subtotal.toFixed(2)}`;
+            document.getElementById('grand-total').innerText = `₹ ${subtotal.toFixed(2)}`;
+        }
+
+        function processOrder() {
+            fetch("{{ url_for('process_order') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert("Order placed successfully! A confirmation email has been sent.");
+                    window.location.href = "{{ url_for('index') }}";
+                } else {
+                    alert(`Error: ${data.error || 'Unknown error occurred'}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('A network error occurred. Please try again.');
+            });
+        }
+    </script>
+</head>
+<body>
+    {% if session.get('email') %}
+    <section id="header">
+        <a href="#"><img src="{{ url_for('static', filename='images/LogoU.jpeg') }}" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('shop') }}">Products</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                <li><a class="active" href="{{ url_for('cart') }}"><img src="{{ url_for('static', filename='images/Icons/cart.png') }}"></a></li>
+            </ul>
+        </div>      
+    </section>
+
+    <section id="page-header" class="about-header" style="background-image: url('{{ url_for('static', filename='images/Banners/about.png') }}');">
+        <h1>#BaggingTheBest</h1>
+        <p>Elevate Your Life, Just Steps Away from <span class="you">Stylish</span> Living</p>
+    </section>
+
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Images</td>
+                    <td>Product</td>
+                    <td>Size</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr id="cart-item-{{ item.product_id }}">
+                    <td>
+                        <a href="#" onclick="removeItem('{{ item.product_id }}', '{{ item.size }}')">
+                            <i class="far fa-times-circle"></i>
+                        </a>
+                    </td>
+                    <td><img src="{{ item.image }}" alt="{{ item.name }}"></td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.size }}</td>
+                    <td class="price" data-price="{{ item.price }}">₹ {{ item.price }}</td>
+                    <td>
+                        <input 
+                            type="number" 
+                            value="{{ item.quantity }}" 
+                            min="1" 
+                            class="quantity" 
+                            onchange="updateQuantity('{{ item.product_id }}', '{{ item.size }}', parseInt(this.value))">
+                    </td>
+                    
+                    <td class="subtotal" data-subtotal="{{ item.price * item.quantity }}">₹ {{ (item.price * item.quantity) | round(2) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    
+    <section id="cart-add" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" placeholder="Enter Your Coupon Number">
+                <button class="normal">Apply</button>
+            </div>
+        </div>
+    
+        <div id="subtotal">
+            <h3>Cart Total</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    {% set cart_subtotal = 0 %}
+                    {% for item in cart_items %}
+                        {% set cart_subtotal = cart_subtotal + (item.price * item.quantity) %}
+                    {% endfor %}
+                    <td id="cart-subtotal">₹ {{ cart_subtotal | round(2) }}</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    {% set grand_total = 0 %}
+                    {% for item in cart_items %}
+                        {% set grand_total = grand_total + (item.price * item.quantity) %}
+                    {% endfor %}
+                    <td><strong id="grand-total">₹ {{ grand_total | round(2) }}</strong></td>
+
+                </tr>
+            </table>
+            <button onclick="processOrder()">Proceed To Checkout</button>
+        </div>
+    </section>
+    <footer id="footer" class="section-p1">
+        <div class="footer-container">
+            <div class="socialIcons">
+              <a href="{{ url_for('about') }}"><i class="fa-brands fa-instagram"></i></a>
+              <a href="{{ url_for('about') }}"><i class="fa-brands fa-facebook"></i></a>
+              <a href="{{ url_for('about') }}"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+            <div class="footernav">
+              <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                <li><a href="{{ url_for('about') }}">Our Team</a></li>
+              </ul>
+            </div>
+          </div>
+        <div class="footerBottom">
+            <p>Copyright &copy;2024; Designed By <span class="designer">GROUP 8</span></p>
+        </div>
+    </footer>
+    {% else %}
+        <p>Please <a href="{{ url_for('login') }}">log in</a> to view your cart.</p>
+    {% endif %}
+</body>
+</html>

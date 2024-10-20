@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanTrove</title>
+    <link class="favicon" rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <section id="header">
+    <a href="#"><img src="{{ url_for('static', filename='images/LogoU.jpeg') }}" class="logo" alt=""></a>
+
+    <div>
+      <ul id="navbar">
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a class="active" href="{{ url_for('shop') }}">Products</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('cart') }}"><img src="{{ url_for('static', filename='images/Icons/cart.png') }}"></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="page-header" class="shop-header" style="background-image: url('{{ url_for('static', filename='images/Banners/shop.jpg') }}');">
+    <h1>#WearitWednesday</h1>
+    <p>save up to 50% on Wednesdays</p>
+  </section>
+
+  <section id="products" class="section-p1">
+    <div class="pro-container">
+      <div class="pro1">
+        <img id="img1" src="{{ url_for('static', filename='images/fanny-bag/01/unisex-black-leaf-me-alone-fanny-bag-578605-1683816389-1.webp') }}" alt="">
+        <div class="des">
+          <span>Sling Bags</span>
+          <h4>Black Leaf Me Alone</h4>
+          <h3>₹ 499</h3>
+        </div>
+      </div>
+      <div class="pro1">
+        <img id="img2" src="{{ url_for('static', filename='images/fanny-bag/02/not-for-everyone-fanny-bag-578604-1680613545-1.webp') }}" alt="">
+        <div class="des">
+          <span>Sling Bags</span>
+          <h4>Not For Everyone</h4>
+          <h3>₹ 499</h3>
+        </div>
+      </div>
+      <div class="pro1">
+        <img id="img2" src="{{ url_for('static', filename='images/fanny-bag/03/white-panda-camo-fanny-bag-578614-1680612792-1.webp') }}" alt="">
+        <div class="des">
+          <span>Sling Bags</span>
+          <h4>White Panda Camo</h4>
+          <h3>₹ 499</h3>
+        </div>
+      </div>
+      <div class="pro1">
+        <img id="img2" src="{{ url_for('static', filename='images/fanny-bag/04/unisex-mickey-hyperprint-sling-bag-578615-1677841916-1.webp') }}" alt="">
+        <div class="des">
+          <span>Sling Bags</span>
+          <h4>Mickey Hyperprint</h4>
+          <h3>₹ 499</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="newsletter" class="section-p1 section-m2">
+    <div class="newstext">
+      <h4>Sign Up For Newsletters</h4>
+      <p>Get E-mails About Our <span>Latest Drops</span> and <span>Special offers</span>.</p>
+    </div>
+    <div class="form">
+      <input type="text" placeholder="Your Email Address">
+      <button class="newsbtn">Sign Up</button>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="footer-container">
+      <div class="socialIcons">
+        <a href="{{ url_for('about') }}"><i class="fa-brands fa-instagram"></i></a>
+        <a href="{{ url_for('about') }}"><i class="fa-brands fa-facebook"></i></a>
+        <a href="{{ url_for('about') }}"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+      <div class="footernav">
+        <ul>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+          <li><a href="{{ url_for('about') }}">Our Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footerBottom">
+      <p>Copyright &copy;2024; Designed By <span class="designer">GROUP 8</span></p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='hover.js') }}"></script>
+
+</body>
+
+</html>

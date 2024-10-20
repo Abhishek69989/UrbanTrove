@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanTrove - Sign Up</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/general/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles/SignUp/signup.css') }}">
+</head>
+<body>
+    <header>
+        <div class="left">
+            <a href="{{ url_for('index') }}" class="home-button">
+                <img class="home" src="{{ url_for('static', filename='images/home-icon.png') }}" alt="Home">
+            </a>
+        </div>
+        <div class="middle">
+            <img class="site-name" src="{{ url_for('static', filename='images/sitename.jpg') }}" alt="UrbanTrove">
+        </div>
+        <div class="right"></div>
+    </header>
+    <div class="main">
+        <div class="container">
+            <div class="signup">
+                <p class="heading">Sign Up</p>
+                <form action="{{ url_for('signup') }}" method="POST" name="forms" onsubmit="return Validation();">
+                    <div class="name-label">
+                        <label for="name">NAME</label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="errors"></div>
+                    </div>
+                    <div class="address-label">
+                        <label for="address">ADDRESS</label>
+                        <input type="text" id="address" name="address" required>
+                        <div class="errors"></div>
+                    </div>
+                    <div class="email-label">
+                        <label for="email">EMAIL</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="errors js-email-error"></div>
+                    </div>
+                    <div class="email-label">
+                        <label for="mobile">MOBILE</label>
+                        <input type="tel" id="mobile" name="mobile" placeholder="Enter Valid Mobile Number" required>
+                        <div class="errors js-mobile-error"></div>
+                    </div>
+                    <div class="password-label">
+                        <label for="password">PASSWORD</label>
+                        <input type="password" id="password" name="password" required>
+                        <div class="errors js-pass-error"></div>
+                    </div>
+                    <div class="password-label">
+                        <label for="repassword">RE-ENTER PASSWORD</label>
+                        <input type="password" id="repassword" name="repassword" required>
+                        <div class="errors js-re-pass-error"></div>
+                    </div>
+                    <input type="submit" class="submit" value="Sign Up">
+                    <div class="login-link"><a class="link" href="{{ url_for('login') }}">Already a user?</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='Scripts/SignUp/js-signup-validation.js') }}"></script>
+</body>
+</html>

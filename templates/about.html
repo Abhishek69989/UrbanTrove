@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanTrove</title>
+    <link class="favicon" rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+
+  <body>
+    <section id="header">
+      <a href="#"><img src="{{ url_for('static', filename='images/LogoU.jpeg') }}" class="logo" alt=""></a>
+  
+      <div>
+        <ul id="navbar">
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('shop') }}">Products</a></li>
+          <li><a class="active" href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+          {% if session.get('email') %}
+              <li><a href="{{ url_for('logout') }}">Logout</a></li>
+          {% else %}
+              <li><a href="{{ url_for('login') }}">Login</a></li>
+          {% endif %}
+          <li><a href="{{ url_for('cart') }}"><img src="{{ url_for('static', filename='images/Icons/cart.png') }}"></a></li>
+        </ul>
+      </div>      
+    </section>
+
+    <section id="page-header" class="about-header" style="background-image: url('{{ url_for('static', filename='images/Banners/about.png') }}');">
+      <h1>#KnowUs</h1>
+      <p> Unveiling Our Journey </p>
+    </section>
+
+    <section id="about-main" class="section-p1">
+      <img src="{{ url_for('static', filename='images/a6.jpg') }}" alt="">
+      <div>
+        <h2>Who Are We</h2>
+        <br>
+        <p>Abhishek, Arjun CH, Arjun U and Ayush, the dynamic Squad behind Group 8, have collaborated to develop this exceptional e-commerce website dedicated to clothing. With their combined expertise and passion for technology, they have crafted this platform that seamlessly connects fashion enthusiasts with their favorite apparel.
+          Together, the Team have synergized their skills and knowledge to build UrbanTrove a compelling e-commerce platform that showcases the latest fashion trends, offers seamless navigation, and ensures a delightful shopping experience. With their dedication and expertise, they have crafted UrbanTrove that goes beyond just selling clothes; it represents a gateway to express one's style and individuality.</p>
+        <br>
+        <p>Whether you're a fashion enthusiast seeking the latest trends or a fashion brand looking to expand your reach, UrbanTrove is the perfect destination. Get ready to embark on a fashionable journey with their meticulously crafted platform.</p>
+
+        <br><br>
+        
+        <marquee bgcolor="#e3e6f3" loop="-1" scrollamount="6" width="100%"> GROUP 8 </marquee>
+
+      </div>
+    </section>
+
+    <section id="newsletter" class="section-p1 section-m2">
+      <div class="newstext" >
+        <h4>Sign Up For Newsletters</h4>
+        <p>Get E-mails About Our <span>Latest Drops</span> and <span>Special offers</span>.</p>
+      </div>
+      <div class="form">
+        <input type="text" placeholder="Your Email Address">
+        <button class="newsbtn">Sign Up</button>
+      </div>
+    </section>
+
+    <footer id="footer" class="section-p1">
+    <div class="footer-container">
+      <div class="socialIcons">
+        <a href="{{ url_for('about') }}"><i class="fa-brands fa-instagram"></i></a>
+        <a href="{{ url_for('about') }}"><i class="fa-brands fa-facebook"></i></a>
+        <a href="{{ url_for('about') }}"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+      <div class="footernav">
+        <ul>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+          <li><a href="{{ url_for('about') }}">Our Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footerBottom">
+      <p>Copyright &copy;2024; Designed By <span class="designer">ABHISHEK</span></p>
+    </div>
+    </footer>
+
+    
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UrbanTrove</title>
+  <link class="favicon" rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <section id="header">
+        <a href="#"><img src="{{ url_for('static', filename='images/LogoU.jpeg') }}" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('shop') }}">Products</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                {% if session.get('email') %}
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('cart') }}"><img src="{{ url_for('static', filename='images/Icons/cart.png') }}"></a></li>
+            </ul>
+        </div>      
+    </section>
+
+  <section id="hero" style="background-image: url('{{ url_for('static', filename='images/hero4.png') }}');">
+    <h1>Explore your true</h1>
+    <h2>style</h2>
+    <p>Your Favorites At Unbelievable Prices</p>
+    <button onclick="window.location.href='{{ url_for('shop') }}';" style="background-image: url('{{ url_for('static', filename='images/button.png') }}');">Shop Now</button>
+  </section>
+
+  <div class="cat_title" style="background-image: url('{{ url_for('static', filename='images/Category/title.jpeg') }}');">
+    <p>Categories</p>
+  </div>
+  <section id="cats">
+    <div class="ca-box">
+        <a href="{{ url_for('category1') }}"><img src="{{ url_for('static', filename='images/Category/oversize.jpg') }}" alt=""></a>
+    </div>
+    <div class="ca-box">
+        <a href="{{ url_for('category2') }}"><img src="{{ url_for('static', filename='images/Category/tshirt.jpg') }}" alt=""></a>
+    </div>
+    <div class="ca-box">
+        <a href="{{ url_for('category3') }}"><img src="{{ url_for('static', filename='images/Category/jeans.jpg') }}" alt=""></a>
+    </div>
+    <div class="ca-box">
+        <a href="{{ url_for('category4') }}"><img src="{{ url_for('static', filename='images/Category/slides.jpg') }}" alt=""></a>
+    </div>
+    <div class="ca-box">
+        <a href="{{ url_for('category5') }}"><img src="{{ url_for('static', filename='images/Category/bag.jpg') }}" alt=""></a>
+    </div>
+</section>
+
+  <section id="feature-title" style="background-image: url('{{ url_for('static', filename='images/Category/title.jpeg') }}');">
+    <p class="feat-p">Top selling</p>
+  </section>
+  
+  <section id="products" class="section-p1">
+    <div class="pro-container">
+        <div class="pro" href="singleproduct.html">
+            <img id="img1" src="{{ url_for('static', filename='images/Featured/overs2.jpg') }}" alt="" onmouseover="changeImg1()" onmouseout="changeImg1_1()">
+            <div class="des">
+                <span>Oversized T-Shirts</span>
+                <h4>Tom And Jerry: Angry Tom</h4>
+                <h3>₹ 999</h3>
+            </div>
+        </div>
+        <div class="pro">
+            <img id="img2" src="{{ url_for('static', filename='images/Featured/overs.jpg') }}" alt="" onmouseover="changeImg2()" onmouseout="changeImg2_2()">
+            <div class="des">
+                <span>Oversized T-Shirts</span>
+                <h4>Harry Potter: Hogwarts 07</h4>
+                <h3>₹ 999</h3>
+            </div>
+        </div>
+        <div class="pro">
+            <img id="img3" src="{{ url_for('static', filename='images/Featured/overs1.jpg') }}" alt="" onmouseover="changeImg3()" onmouseout="changeImg3_3()">
+            <div class="des">
+                <span>Oversized T-Shirts</span>
+                <h4>Truck Art: Superman</h4>
+                <h3>₹ 999</h3>
+            </div>
+        </div>
+        <div class="pro">
+            <img id="img4" src="{{ url_for('static', filename='images/Featured/jean.jpg') }}" alt="" onmouseover="changeImg4()" onmouseout="changeImg4_4()">
+            <div class="des">
+                <span>Jeans</span>
+                <h4>Solids: Charcoal Grey</h4>
+                <h3>₹ 2299</h3>
+            </div>
+        </div>
+        <div class="pro">
+            <img id="img5" src="{{ url_for('static', filename='images/Featured/tee.jpg') }}" alt="" onmouseover="changeImg5()" onmouseout="changeImg5_5()">
+            <div class="des">
+                <span>T-Shirts</span>
+                <h4>The Office: Best of Dunder Mifflin</h4>
+                <h3>₹ 549</h3>
+            </div>
+        </div>
+        <div class="pro">
+            <img id="img6" src="{{ url_for('static', filename='images/Featured/tee1.jpg') }}" alt="" onmouseover="changeImg6()" onmouseout="changeImg6_6()">
+            <div class="des">
+                <span>T-Shirts</span>
+                <h4>Star Wars: Spaceship Pattern</h4>
+                <h3>₹ 699</h3>
+            </div>
+        </div>
+        <div class="pro">
+            <img id="img7" src="{{ url_for('static', filename='images/Featured/shoe1.jpg') }}" alt="" onmouseover="changeImg7()" onmouseout="changeImg7_7()">
+            <div class="des">
+                <span>Sneakers</span>
+                <h4>Black Panther: Wakanda</h4>
+                <h3>₹ 2499</h3>
+            </div>
+        </div>
+        <div class="pro">
+            <img id="img8" src="{{ url_for('static', filename='images/Featured/fanny.jpg') }}" alt="" onmouseover="changeImg8()" onmouseout="changeImg8_8()">
+            <div class="des">
+                <span>Fanny Packs</span>
+                <h4>Soul Music Fanny Pack</h4>
+                <h3>₹ 819</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <section id="banner" class="section-m1" style="background-image: url('{{ url_for('static', filename='images/Banners/banner1.jpeg') }}');">
+    <p>Up to <span>70% Off</span> - All Accessories</p>
+    <button class="bannerbtn">Explore More</button>
+  </section>
+
+  <section id="end_banner">
+    <div href="#" class="box" style="background-image: url('{{ url_for('static', filename='images/Banners/Bomber.jpg') }}');">
+    </div>
+    <div href="#" class="box box2" style="background-image: url('{{ url_for('static', filename='images/Banners/combo.jpg') }}');">
+    </div>
+    <div href="#" class="box box3" style="background-image: url('{{ url_for('static', filename='images/Banners/kicks.jpg') }}');">
+    </div>
+  </section>
+
+  <section id="newsletter" class="section-p1 section-m2">
+    <div class="newstext" >
+      <h4>Sign Up For Newsletters</h4>
+      <p>Get E-mails About Our <span>Latest Drops</span> and <span>Special offers</span>.</p>
+    </div>
+    <div class="form">
+      <input type="text" placeholder="Your Email Address">
+      <button class="newsbtn">Sign Up</button>
+    </div>
+  </section>
+
+  <footer id="footer" class="section-p1">
+    <div class="footer-container">
+        <div class="socialIcons">
+            <a href="{{ url_for('about') }}"><i class="fa-brands fa-instagram"></i></a>
+            <a href="{{ url_for('about') }}"><i class="fa-brands fa-facebook"></i></a>
+            <a href="{{ url_for('about') }}"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+        <div class="footernav">
+            <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            <li><a href="{{ url_for('about') }}">Our Team</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footerBottom">
+        <p>Copyright &copy;2024; Designed By <span class="designer">GROUP 8</span></p>
+    </div>
+</footer>
+
+
+<script src="{{ url_for('static', filename='hover.js') }}"></script>
+
+</body>
+
+</html>
