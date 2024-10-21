@@ -1,0 +1,5 @@
+Flask==3.0.3
+psycopg2==2.9.9
+Flask-Session==0.8.0
+Werkzeug==3.0.4
+yagmail==0.15.293
