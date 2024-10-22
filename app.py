@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import Flask, render_template, send_from_directory, request, redirect, url_for, flash, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import psycopg2
@@ -74,6 +74,10 @@ create_tables()
 
 def is_logged_in():
     return 'email' in session
+
+@app.route('/static/<path:path>')
+def serve_static(path):
+    return send_from_directory('static', path)
 
 @app.route('/')
 def index():
