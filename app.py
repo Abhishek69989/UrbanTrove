@@ -12,10 +12,10 @@ import yagmail
 app = Flask(__name__)
 app.secret_key = 'c56caa21819588ed94b9d04f84ef861e9f9d22d245bdf671005cda68b0350d7f'
 
-DB_HOST = 'localhost'
-DB_NAME = 'UrbanTrove'
-DB_USER = 'postgres' 
-DB_PASSWORD = 'abhishek@sql123' 
+DB_HOST = 'urbantroveserver.postgres.database.azure.com'
+DB_NAME = 'postgres'
+DB_USER = 'Abhishek' 
+DB_PASSWORD = 'urbantrove@123' 
 
 def create_connection():
     return psycopg2.connect(
