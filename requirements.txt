@@ -67,3 +67,4 @@ virtualenv==20.26.3
 wcwidth==0.2.13
 Werkzeug==3.0.4
 yagmail==0.15.293
+azure-storage-blob==12.16.0
