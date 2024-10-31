@@ -17,7 +17,7 @@ DB_NAME = 'postgres'
 DB_USER = 'Abhishek' 
 DB_PASSWORD = 'urbantrove@123' 
 
-BLOB_CONNECTION_STRING = '/subscriptions/6bd761b9-8cd7-4353-8ae5-2cc43ea66142/resourceGroups/cloud-shell-storage-centralindia/providers/Microsoft.Storage/storageAccounts/csg10032002369de16c'
+BLOB_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=csg10032002369de16c;AccountKey=5IU6MSxljVnxdkQ+D9NARc1tsPmViOW53LZd425+toNLQjr789d/jZA2AOjKaOK7AXOaOEvLNkot+AStvzjLhg==;EndpointSuffix=core.windows.net'
 BLOB_CONTAINER_NAME = 'urbantrove'
 
 def create_connection():
