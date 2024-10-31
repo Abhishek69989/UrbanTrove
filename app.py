@@ -8,6 +8,9 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import yagmail
+from flask import Flask, jsonify, send_file
+from azure.storage.blob import BlobServiceClient
+import io
 
 app = Flask(__name__)
 app.secret_key = 'c56caa21819588ed94b9d04f84ef861e9f9d22d245bdf671005cda68b0350d7f'
