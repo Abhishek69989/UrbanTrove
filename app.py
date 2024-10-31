@@ -17,6 +17,9 @@ DB_NAME = 'postgres'
 DB_USER = 'Abhishek' 
 DB_PASSWORD = 'urbantrove@123' 
 
+BLOB_CONNECTION_STRING = '/subscriptions/6bd761b9-8cd7-4353-8ae5-2cc43ea66142/resourceGroups/cloud-shell-storage-centralindia/providers/Microsoft.Storage/storageAccounts/csg10032002369de16c'
+BLOB_CONTAINER_NAME = 'urbantrove'
+
 def create_connection():
     return psycopg2.connect(
         host=DB_HOST,
@@ -25,6 +28,35 @@ def create_connection():
         password=DB_PASSWORD,
         port=5432
     )
+
+# Initialize Blob Service Client
+blob_service_client = BlobServiceClient.from_connection_string(BLOB_CONNECTION_STRING)
+container_client = blob_service_client.get_container_client(BLOB_CONTAINER_NAME)
+
+# Route to access a specific configuration file from Blob Storage
+@app.route('/config/<filename>', methods=['GET'])
+def get_config_file(filename):
+    try:
+        blob_client = container_client.get_blob_client(filename)
+        blob_data = blob_client.download_blob().readall()
+
+        return send_file(
+            io.BytesIO(blob_data),
+            attachment_filename=filename,
+            as_attachment=True
+        )
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# Route to list all available configuration files in the Blob container
+@app.route('/list-configs', methods=['GET'])
+def list_config_files():
+    try:
+        blobs = container_client.list_blobs()
+        blob_names = [blob.name for blob in blobs]
+        return jsonify(blob_names)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 def create_tables():
