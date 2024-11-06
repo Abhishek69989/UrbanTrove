@@ -15,7 +15,7 @@ import io
 app = Flask(__name__)
 app.secret_key = 'c56caa21819588ed94b9d04f84ef861e9f9d22d245bdf671005cda68b0350d7f'
 
-DB_HOST = 'urbantroveserver.postgres.database.azure.com'
+DB_HOST = 'urbantrove.postgres.database.azure.com'
 DB_NAME = 'postgres'
 DB_USER = 'Abhishek' 
 DB_PASSWORD = 'urbantrove@123' 
@@ -32,34 +32,34 @@ def create_connection():
         port=5432
     )
 
-# Initialize Blob Service Client
-blob_service_client = BlobServiceClient.from_connection_string(BLOB_CONNECTION_STRING)
-container_client = blob_service_client.get_container_client(BLOB_CONTAINER_NAME)
+# # Initialize Blob Service Client
+# blob_service_client = BlobServiceClient.from_connection_string(BLOB_CONNECTION_STRING)
+# container_client = blob_service_client.get_container_client(BLOB_CONTAINER_NAME)
 
-# Route to access a specific configuration file from Blob Storage
-@app.route('/config/<filename>', methods=['GET'])
-def get_config_file(filename):
-    try:
-        blob_client = container_client.get_blob_client(filename)
-        blob_data = blob_client.download_blob().readall()
+# # Route to access a specific configuration file from Blob Storage
+# @app.route('/config/<filename>', methods=['GET'])
+# def get_config_file(filename):
+#     try:
+#         blob_client = container_client.get_blob_client(filename)
+#         blob_data = blob_client.download_blob().readall()
 
-        return send_file(
-            io.BytesIO(blob_data),
-            attachment_filename=filename,
-            as_attachment=True
-        )
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+#         return send_file(
+#             io.BytesIO(blob_data),
+#             attachment_filename=filename,
+#             as_attachment=True
+#         )
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
 
-# Route to list all available configuration files in the Blob container
-@app.route('/list-configs', methods=['GET'])
-def list_config_files():
-    try:
-        blobs = container_client.list_blobs()
-        blob_names = [blob.name for blob in blobs]
-        return jsonify(blob_names)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+# # Route to list all available configuration files in the Blob container
+# @app.route('/list-configs', methods=['GET'])
+# def list_config_files():
+#     try:
+#         blobs = container_client.list_blobs()
+#         blob_names = [blob.name for blob in blobs]
+#         return jsonify(blob_names)
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
 
 
 def create_tables():
