@@ -27,5 +27,4 @@ jobs:
           --source ./ \
           --pattern "*" \
           --connection-string "$AZURE_STORAGE_CONNECTION_STRING" \
-          --overwrite true \
-          --show-progress
+          --overwrite true
