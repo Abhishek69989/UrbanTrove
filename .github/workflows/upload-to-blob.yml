@@ -1,1 +1,23 @@
+name: Upload to Azure Blob Storage
 
+on:
+  push:
+    branches:
+      - main  
+  pull_request:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Step 1: Check out the repository to access the files
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # Step 2: Upload files to Azure Blob Storage using the connection string
+    - name: Upload files to Azure Blob Storage
+      env:
+        AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+      run: |
+        az storage blob upload-batch -d 'urbantrovemain' --account-name 'urbantrove' -s './'
