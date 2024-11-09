@@ -17,11 +17,6 @@ jobs:
       run: |
         curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-    - name: Azure CLI login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
     - name: Upload files to Azure Blob Storage
       env:
         AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
@@ -32,4 +27,5 @@ jobs:
           --source ./ \
           --pattern "*" \
           --connection-string "$AZURE_STORAGE_CONNECTION_STRING" \
-          --overwrite true
+          --overwrite true \
+          --show-progress
