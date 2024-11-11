@@ -44,6 +44,36 @@
             </div>
         </section>
     </main>
+    
+    <div class="popup" id="custom-popup">
+        <div class="popup-content">
+            <h2>Notification</h2>
+            <p id="popup-message">This is a custom pop-up message.</p>
+            <button class="close-btn" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function showPopup(message) {
+            document.getElementById("popup-message").textContent = message;
+            document.getElementById("custom-popup").style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("custom-popup").style.display = "none";
+        }
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    window.onload = function() {
+                        showPopup("{{ message }}");
+                    }
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </script>
+    
     <script src="{{ url_for('static', filename='Scripts/Login/js-validation.js') }}"></script>
     
 </body>
