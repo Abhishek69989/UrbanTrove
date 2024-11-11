@@ -13,9 +13,19 @@
                 updateCartTotals();
             });
 
+        function showPopup(message) {
+            document.getElementById("popup-message").textContent = message;
+            document.getElementById("custom-popup").style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("custom-popup").style.display = "none";
+        }
+
+
         function updateQuantity(productId, size, quantity) {
             if (quantity < 1) {
-                alert('Quantity must be at least 1.');
+                showPopup('Quantity must be at least 1.');
                 return;
             }
 
@@ -38,12 +48,12 @@
                     updateCartTotals();
                 } else {
                     console.error('Error updating cart:', data);
-                    alert(`Error updating cart: ${data.error || 'Unknown error'}`);
+                    showPopup(`Error updating cart: ${data.error || 'Unknown error'}`);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('A network error occurred. Please try again.');
+                showPopup('A network error occurred. Please try again.');
             });
         }
 
@@ -62,7 +72,7 @@
                     document.getElementById(`cart-item-${productId}`).remove();
                     updateCartTotals();
                 } else {
-                    alert('Error removing item.');
+                    showPopup('Error removing item.');
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -88,15 +98,15 @@
             .then(response => response.json())
             .then(data => {
                 if (data.message) {
-                    alert("Order placed successfully! A confirmation email has been sent.");
+                    showPopup("Order placed successfully! A confirmation email has been sent.");
                     window.location.href = "{{ url_for('index') }}";
                 } else {
-                    alert(`Error: ${data.error || 'Unknown error occurred'}`);
+                    showPopup(`Error: ${data.error || 'Unknown error occurred'}`);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('A network error occurred. Please try again.');
+                showPopup('A network error occurred. Please try again.');
             });
         }
     </script>
@@ -220,6 +230,15 @@
             <p>Copyright &copy;2024; Designed By <span class="designer">GROUP 8</span></p>
         </div>
     </footer>
+
+    <div class="popup" id="custom-popup">
+        <div class="popup-content">
+            <h2>Notification</h2>
+            <p id="popup-message">This is a custom pop-up message.</p>
+            <button class="close-btn" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+    
     {% else %}
         <p>Please <a href="{{ url_for('login') }}">log in</a> to view your cart.</p>
     {% endif %}
