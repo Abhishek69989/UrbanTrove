@@ -20,9 +20,6 @@
 
         function closePopup() {
             document.getElementById("custom-popup").style.display = "none";
-            if (redirectToIndex) {
-                window.location.href = "{{ url_for('index') }}";
-            }
         }
 
 
@@ -101,8 +98,10 @@
             .then(response => response.json())
             .then(data => {
                 if (data.message) {
-                    redirectToIndex = true;
                     showPopup("Order placed successfully! A confirmation email has been sent.");
+                    setTimeout(() => {
+                        window.location.href = "{{ url_for('index') }}";
+                    }, 10000);
                 } else {
                     showPopup(`Error: ${data.error || 'Unknown error occurred'}`);
                 }
