@@ -13,13 +13,22 @@
 </head>
 
 <script>
+    function showPopup(message) {
+        document.getElementById("popup-message").textContent = message;
+        document.getElementById("custom-popup").style.display = "flex";
+    }
+
+    function closePopup() {
+        document.getElementById("custom-popup").style.display = "none";
+    }
+    
     function addToCart(productId, productName, productPrice, productImage) {
         if (isLoggedIn()) {
             const quantity = parseInt(document.getElementById('product-quantity').value);
             const size = document.getElementById('product-size').value;
 
             if (size === "Select Size") {
-                alert("Please select a size before adding to cart.");
+                showPopup("Please select a size before adding to cart.");
                 return;
             }
 
@@ -44,26 +53,29 @@
                 console.log('Server response:', data);
 
                 if (data.message) {
-                    alert(data.message);
+                    showPopup(data.message);
                     updateCartTotals();
                 } else if (data.error) {
-                    alert('Error: ' + data.error);
+                    showPopup('Error: ' + data.error);
                 } else {
-                    alert('An unknown error occurred. Please try again.');
+                    showPopup('An unknown error occurred. Please try again.');
                 }
             });
         } else {
             showLoginPopup();
         }
     }
+    
 
     function isLoggedIn() {
         return {{ 'true' if session.get('email') else 'false' }};
     }
 
     function showLoginPopup() {
-        alert('Please log in to add items to your cart.');
-        window.location.href = "{{ url_for('login') }}";
+        showPopup('Please log in to add items to your cart.');
+        setTimeout(() => {
+            window.location.href = "{{ url_for('login') }}";
+        }, 1500);
     }
 </script>
 
@@ -217,6 +229,14 @@
             <p>© 2024 UrbanTrove. All rights reserved.</p>
         </div>
     </footer>
+
+    <div class="popup" id="custom-popup">
+        <div class="popup-content">
+            <h2>Notification</h2>
+            <p id="popup-message">This is a custom pop-up message.</p>
+            <button class="close-btn" onclick="closePopup()">Close</button>
+        </div>
+    </div>
 
     <script>
         var Mainimg = document.getElementById("main-img");
